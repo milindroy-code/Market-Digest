@@ -3,12 +3,39 @@
 This file is the recipe every digest run (manual or scheduled) should follow, so
 output stays consistent day to day. Read this file first, then research, then write.
 
-## Live artifact
-**Latest digest URL:** https://claude.ai/code/artifact/af999504-7c10-494d-8ced-5b8cb8308934
-(named "The Opening Bell" — republish to this exact URL on every future run,
-passing it as `url` to the Artifact tool; never publish a fresh artifact for a
-routine update. The source file lives at `digest.html` in this project folder —
-edit that file in place each run, then republish it to the URL above.)
+## Live site
+**Live URL:** https://opening-bell-sandy.vercel.app
+**Repo:** https://github.com/milindroy-code/Market-Digest (branch `main`)
+**Vercel project:** `opening-bell` (team `milind-roy`), Root Directory = `site`
+
+The live site is a static site under `site/` in the repo, auto-deployed by
+Vercel on every push to `main` — **there is no separate publish step**.
+Every scheduled run should: clone/pull this repo, edit files under `site/`,
+commit, and `git push`. That push alone updates the live site within ~30–60
+seconds. Do not use the Artifact tool for scheduled runs — it was only used
+for the original one-off Claude Artifact snapshot at `digest.html` (repo
+root), which is not part of the live site and does not need updating.
+
+### Site structure
+- `site/styles.css` — shared stylesheet/design tokens. Reuse as-is; don't
+  fork per-page styles.
+- `site/index.html` — the latest **daily** edition (home page / "Today" tab).
+  Overwritten each daily run with the newest content.
+- `site/daily/YYYY-MM-DD-<morning|evening>.html` — permanent dated copy of
+  each daily run, created alongside the `index.html` overwrite.
+- `site/weekly/index.html` — the latest **weekly** edition ("This Week" tab).
+  Overwritten each weekly run.
+- `site/weekly/YYYY-Www.html` (ISO week number, e.g. `2026-w38`) — permanent
+  dated copy of each weekly run.
+- `site/archive/index.html` — "Older Editions": a running, most-recent-first
+  list of links to every dated file under `site/daily/` and `site/weekly/`,
+  grouped under "Daily Editions" and "Weekly Editions" headings. Add one new
+  `<li>` entry here per run — never remove old entries.
+
+For structure/markup, copy the existing `site/index.html` (and
+`site/weekly/2026-w37.html` for the weekly layout) as the template — same
+nav bar, masthead, stat tiles, section eyebrows, and card/table patterns.
+Only the content changes.
 
 ## Cadence & framing
 - **Morning briefing** (~8:00 AM IST, Mon–Fri): lead with overnight global cues —
@@ -62,9 +89,15 @@ edit that file in place each run, then republish it to the URL above.)
   bold the numbers that matter.
 
 ## Output checklist per run
-- [ ] Write a dated markdown file to `digests/YYYY-MM-DD-<morning|evening|weekend>.md`
-      following the section order above.
-- [ ] Republish the persistent HTML artifact at the URL recorded above with the
-      new content (same URL — do not create a new artifact).
-- [ ] If this was the very first publish, paste the returned artifact URL into
-      the "Live artifact" field at the top of this file.
+- [ ] Clone/pull the repo (`https://github.com/milindroy-code/Market-Digest`,
+      branch `main`).
+- [ ] Research the day's/week's Indian market news via WebSearch/WebFetch
+      against the sources above, cross-checking figures.
+- [ ] Update `site/index.html` (daily run) or `site/weekly/index.html`
+      (weekly run) in place with the new content, reusing the existing
+      markup/CSS structure.
+- [ ] Save a permanent dated copy under `site/daily/` or `site/weekly/`.
+- [ ] Add one new entry to `site/archive/index.html` linking to that dated
+      copy (most recent first; never delete older entries).
+- [ ] `git add`, commit with a clear message, and `git push` to `main`.
+      This alone redeploys the live site — no other publish step is needed.
