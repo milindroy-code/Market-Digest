@@ -10,3 +10,5 @@ published as a static site and deployed to Vercel.
 Live site: https://opening-bell-sandy.vercel.app
 
 _Git-based auto-deploy test: 2026-09-14T12:42:21Z_
+
+_Root directory set to site/: 2026-09-14T12:43:33Z_
