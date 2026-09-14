@@ -1,0 +1,571 @@
+<title>The Opening Bell</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+  :root {
+    --bg: #eef0f4;
+    --surface: #ffffff;
+    --surface-2: #e4e8ef;
+    --border: #d3d9e3;
+    --ink: #182233;
+    --ink-soft: #47536a;
+    --ink-faint: #7885a0;
+    --accent: #263a5e;
+    --accent-soft: #dde3ef;
+    --gain: #157a55;
+    --gain-soft: #dcf0e6;
+    --loss: #ae3a26;
+    --loss-soft: #f7e3de;
+    --rule: #c7cedb;
+
+    --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+    --font-body: 'Public Sans', -apple-system, Segoe UI, sans-serif;
+    --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1420;
+      --surface: #161d2c;
+      --surface-2: #1d2536;
+      --border: #2b344a;
+      --ink: #e7eaf2;
+      --ink-soft: #b0b9cc;
+      --ink-faint: #7c869e;
+      --accent: #96abda;
+      --accent-soft: #232c42;
+      --gain: #4fc793;
+      --gain-soft: #16281f;
+      --loss: #e88268;
+      --loss-soft: #2d1c17;
+      --rule: #2b344a;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0f1420;
+    --surface: #161d2c;
+    --surface-2: #1d2536;
+    --border: #2b344a;
+    --ink: #e7eaf2;
+    --ink-soft: #b0b9cc;
+    --ink-faint: #7c869e;
+    --accent: #96abda;
+    --accent-soft: #232c42;
+    --gain: #4fc793;
+    --gain-soft: #16281f;
+    --loss: #e88268;
+    --loss-soft: #2d1c17;
+    --rule: #2b344a;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    margin: 0;
+    padding: 0 20px;
+    padding-block: 28px 64px;
+  }
+
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Masthead ---------- */
+  .masthead {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid var(--ink);
+  }
+
+  .masthead-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2rem, 6vw, 2.7rem);
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+
+  .edition-badge {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid var(--border);
+    padding: 5px 10px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .masthead-sub {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.02em;
+  }
+
+  .masthead-sub strong { color: var(--ink-soft); font-weight: 600; }
+
+  /* ---------- Lede ---------- */
+  .lede {
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 3vw, 1.4rem);
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 22px 0 26px;
+    text-wrap: balance;
+    max-width: 62ch;
+  }
+  .lede .drop { font-weight: 600; color: var(--accent); }
+
+  /* ---------- Stat tiles ---------- */
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+  @media (max-width: 560px) {
+    .tiles { grid-template-columns: 1fr; }
+  }
+
+  .tile {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .tile-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .tile-value {
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+  }
+
+  .tile-change {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    width: fit-content;
+    padding: 2px 7px;
+    border-radius: 3px;
+  }
+  .tile-change.down { color: var(--loss); background: var(--loss-soft); }
+  .tile-change.up { color: var(--gain); background: var(--gain-soft); }
+
+  .tile-note { font-size: 0.72rem; color: var(--ink-faint); }
+
+  .vix-line {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin: -14px 0 30px;
+    padding-top: 2px;
+  }
+  .vix-line strong { color: var(--loss); font-family: var(--font-mono); }
+
+  /* ---------- Sections ---------- */
+  section { margin-bottom: 34px; }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .eyebrow-text {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .eyebrow-rule {
+    height: 1px;
+    background: var(--rule);
+    flex: 1;
+  }
+
+  section > p {
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 65ch;
+    margin: 0 0 12px;
+  }
+  section > p:last-child { margin-bottom: 0; }
+  section strong { color: var(--ink); font-weight: 600; }
+  .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+  ul.plain, ol.plain {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* generic bullet line */
+  .line {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    padding-left: 16px;
+    position: relative;
+    max-width: 65ch;
+  }
+  .line::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--ink-faint);
+  }
+  .line strong { color: var(--ink); }
+
+  /* Movers */
+  .movers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 560px) {
+    .movers-grid { grid-template-columns: 1fr; }
+  }
+  .mover-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gain);
+    border-radius: 4px;
+    padding: 14px 16px;
+  }
+  .mover-card.losers { border-left-color: var(--loss); }
+  .mover-card h3 {
+    margin: 0 0 8px;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .mover-card.gainers h3 { color: var(--gain); }
+  .mover-card.losers h3 { color: var(--loss); }
+  .mover-card ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.92rem;
+    color: var(--ink);
+  }
+  .sector-line {
+    margin-top: 12px;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+  }
+
+  /* FII/DII */
+  .flow-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  @media (max-width: 560px) {
+    .flow-grid { grid-template-columns: 1fr; }
+  }
+  .flow-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 16px;
+  }
+  .flow-card .who {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+  }
+  .flow-card .amt {
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .flow-card .amt.sell { color: var(--loss); }
+  .flow-card .amt.buy { color: var(--gain); }
+  .flow-card .detail {
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+    margin-top: 4px;
+  }
+
+  /* IPO table */
+  .ipo-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+  .ipo-table-wrap { overflow-x: auto; }
+  .ipo-table th {
+    text-align: left;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 600;
+    padding: 0 10px 8px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .ipo-table td {
+    padding: 9px 10px 9px 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+  .ipo-table td:first-child, .ipo-table th:first-child { color: var(--ink); font-weight: 600; }
+  .ipo-table tr:last-child td { border-bottom: none; }
+  .ipo-table .price { font-family: var(--font-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  /* Watch list */
+  .watch-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    counter-reset: watch;
+  }
+  .watch-item {
+    display: flex;
+    gap: 14px;
+    max-width: 65ch;
+  }
+  .watch-item .n {
+    counter-increment: watch;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 0.95rem;
+    flex-shrink: 0;
+    width: 20px;
+  }
+  .watch-item .n::before { content: counter(watch); }
+  .watch-item p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .watch-item strong { color: var(--ink); }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding-top: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .disclaimer {
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    line-height: 1.5;
+    max-width: 65ch;
+  }
+  .sources {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    line-height: 1.7;
+  }
+  .sources strong { color: var(--ink-soft); }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="masthead-top">
+      <div class="brand">The Opening Bell</div>
+      <div class="edition-badge">Week Wrap &amp; Week Ahead</div>
+    </div>
+    <div class="masthead-sub">
+      <span><strong>Sunday, 14 September 2026</strong> · Indian markets closed</span>
+      <span>Covering the week ended <strong>11 Sep</strong> · previewing <strong>15–19 Sep</strong></span>
+    </div>
+  </header>
+
+  <p class="lede">
+    <span class="drop">A fifth straight losing week</span> for Indian equities closed under the shadow of a fast-moving oil shock: Saudi Arabia shut a pipeline carrying 4% of global crude supply after drone attacks, sending Brent above $107 just as Wall Street rallied on cooler inflation data — a split in global sentiment that Indian markets will have to reconcile on Monday.
+  </p>
+
+  <section class="tiles-section">
+    <div class="tiles">
+      <div class="tile">
+        <span class="tile-label">Nifty 50</span>
+        <span class="tile-value">23,398.10</span>
+        <span class="tile-change down">↓ 499.60 · 2.09%</span>
+        <span class="tile-note">week on week</span>
+      </div>
+      <div class="tile">
+        <span class="tile-label">Sensex</span>
+        <span class="tile-value">74,781.76</span>
+        <span class="tile-change down">↓ 1,733.67 · 2.27%</span>
+        <span class="tile-note">week on week</span>
+      </div>
+      <div class="tile">
+        <span class="tile-label">Bank Nifty</span>
+        <span class="tile-value">56,606.55</span>
+        <span class="tile-change down">↓ 763.10 · 1.33%</span>
+        <span class="tile-note">week on week</span>
+      </div>
+    </div>
+    <p class="vix-line">India VIX rose <strong>4.15%</strong> over the week — a clear signal of rising trader nervousness. Friday alone saw the Sensex slip 120.83 points and the Nifty fall 79.70 points to close just under 23,400.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow"><span class="eyebrow-text">Global Cues</span><span class="eyebrow-rule"></span></div>
+    <p><strong>The story of the week is oil, not equities.</strong> Saudi Arabia shut its critical 1,200 km East–West crude pipeline — the one route that lets it bypass the Strait of Hormuz entirely — after drone attacks launched from Iraq on 10 September, with further strikes reported near the Strait itself. The pipeline normally carries roughly <strong>4% of global oil supply</strong>.</p>
+    <p>Brent crude jumped more than 3.5% to above <strong class="num">$107–108/barrel</strong>; WTI approached <strong class="num">$103</strong>. US diesel prices crossed <strong class="num">$6/gallon</strong>, a record high. Gold held at <strong class="num">$4,461/oz</strong> on safe-haven demand, while the rupee stood at <strong class="num">₹95.56/$</strong> — a weak currency alongside costlier crude is a combination that typically pressures both equities and inflation expectations here.</p>
+    <p>Wall Street moved the other way on Friday: the Dow gained <strong>509 points (+0.98%)</strong> to 52,573.29, the S&amp;P&nbsp;500 rose <strong>0.86%</strong> to 7,656.98, and the Nasdaq climbed <strong>0.96%</strong> to 26,333.04 on cooler US inflation data — a positive cue that now sits in tension with the oil-driven risk-off mood at home.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow"><span class="eyebrow-text">Movers</span><span class="eyebrow-rule"></span></div>
+    <div class="movers-grid">
+      <div class="mover-card gainers">
+        <h3>Gainers</h3>
+        <ul>
+          <li>Max Healthcare</li>
+          <li>Adani Enterprises</li>
+          <li>Adani Ports</li>
+        </ul>
+      </div>
+      <div class="mover-card losers">
+        <h3>Losers</h3>
+        <ul>
+          <li>Infosys</li>
+          <li>HCL Technologies</li>
+          <li>Wipro</li>
+        </ul>
+      </div>
+    </div>
+    <p class="sector-line">IT, Metal, Realty and Auto led the week's declines; Financial Services held up relatively better than the broader market.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow"><span class="eyebrow-text">Corporate News</span><span class="eyebrow-rule"></span></div>
+    <ul class="plain">
+      <li class="line"><strong>Ceigall India</strong> — board approved a transaction on 11 September.</li>
+      <li class="line"><strong>Vijaya Diagnostic Centre</strong> — announced a 100% acquisition of an integrated diagnostic centre.</li>
+      <li class="line"><strong>Indiabulls</strong> — executed a definitive agreement with Fintech Cloud, a fintech services company.</li>
+      <li class="line"><strong>Jindal Poly Films</strong> — proposed a Scheme of Arrangement to demerge its Nonwoven Fabrics business into Global Nonwovens Limited.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="eyebrow"><span class="eyebrow-text">Macro &amp; Policy</span><span class="eyebrow-rule"></span></div>
+    <ul class="plain">
+      <li class="line"><strong>RBI</strong> held the repo rate at <strong>5.25%</strong> at its August review, a fourth consecutive pause. The next MPC meeting runs <strong>5–7 October 2026</strong> and will be watched closely given rising oil-driven inflation risk.</li>
+      <li class="line"><strong>SEBI</strong> — from 1 September, every new single-holder demat account and mutual fund folio must carry a nomination or a signed opt-out declaration, under a circular dated 29 May 2026.</li>
+      <li class="line"><strong>RBI</strong> — the special FCNR(B) dollar-rupee swap window closed 31 August; new NRI deposits no longer get the concessional pricing that had lifted rates to roughly 6–7%.</li>
+      <li class="line"><strong>RBI + SEBI</strong> jointly launched <strong>Demat 2.0</strong> at the Global Fintech Fest — a pilot testing tokenised corporate bonds on distributed-ledger and CBDC rails for faster issuance and settlement.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="eyebrow"><span class="eyebrow-text">FII / DII Activity</span><span class="eyebrow-rule"></span></div>
+    <div class="flow-grid">
+      <div class="flow-card">
+        <div class="who">FII — net for the week</div>
+        <div class="amt sell">↓ ₹1,795 cr</div>
+        <div class="detail">Cumulative net selling, continuing a cautious stance amid global volatility.</div>
+      </div>
+      <div class="flow-card">
+        <div class="who">DII — 11 September</div>
+        <div class="amt buy">↑ ₹1,968 cr</div>
+        <div class="detail">Net cash-segment buying, offsetting the foreign outflow.</div>
+      </div>
+    </div>
+    <p>Earlier in the week, on 4 September, DIIs bought ₹19,254 crore and sold ₹10,324 crore for a net buy of <strong>₹8,930 crore</strong>, even as FIIs sold a net <strong>₹3,112 crore</strong> that same day. Domestic flows remain the market's main cushion against persistent foreign outflows.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow"><span class="eyebrow-text">IPO &amp; Corporate-Action Watch</span><span class="eyebrow-rule"></span></div>
+    <p>A busy primary market: <strong>16 mainboard IPOs</strong> are scheduled across the 7–21 September window. Four open this coming week alone.</p>
+    <div class="ipo-table-wrap">
+      <table class="ipo-table">
+        <thead>
+          <tr><th>Issue</th><th>Opens</th><th>Closes</th><th>Price band</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Quanto Agroworld</td><td>15 Sep</td><td>17 Sep</td><td class="price">₹67</td></tr>
+          <tr><td>Shakti Polytarp</td><td>15 Sep</td><td>17 Sep</td><td class="price">₹56–59</td></tr>
+          <tr><td>Vama Wovenfab</td><td>15 Sep</td><td>17 Sep</td><td class="price">—</td></tr>
+          <tr><td>Hero Motors</td><td>16 Sep</td><td>18 Sep</td><td class="price">₹79–84</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:12px">Hero Motors is the week's largest listing, targeting roughly <strong class="num">₹1,000 crore</strong> (₹600 crore fresh issue plus an offer for sale of about 4.76 crore shares).</p>
+  </section>
+
+  <section>
+    <div class="eyebrow"><span class="eyebrow-text">What to Watch — Week of 15–19 September</span><span class="eyebrow-rule"></span></div>
+    <div class="watch-list">
+      <div class="watch-item"><span class="n"></span><p><strong>Crude oil's trajectory.</strong> The Saudi pipeline shutdown and Strait of Hormuz tensions are the single biggest swing factor right now, via inflation, the rupee and the current account.</p></div>
+      <div class="watch-item"><span class="n"></span><p><strong>Technical levels.</strong> Nifty broke below the 23,500 support zone; expect a <strong>23,000–23,800</strong> range, support near <strong>22,800</strong>, resistance at <strong>24,000–24,200</strong>. Reclaiming 23,700–23,900 would help confirm a recovery.</p></div>
+      <div class="watch-item"><span class="n"></span><p><strong>FII flow trend.</strong> Whether foreign outflows persist or ease as the oil shock evolves, and whether DIIs can keep absorbing the selling.</p></div>
+      <div class="watch-item"><span class="n"></span><p><strong>The IPO calendar.</strong> Four new issues open this week alone — primary-market appetite is a useful read on broader sentiment.</p></div>
+      <div class="watch-item"><span class="n"></span><p><strong>Run-up to the October RBI policy.</strong> Commentary ahead of the 5–7 October MPC meeting will be watched for early signals given rising oil-driven inflation risk.</p></div>
+      <div class="watch-item"><span class="n"></span><p><strong>Global divergence.</strong> A resilient Wall Street against a jittery, oil-sensitive Indian market is a gap worth watching into the week.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="disclaimer">This digest is a news summary for market enthusiasts, not investment advice. Figures are drawn from multiple financial news sources and may be revised — always confirm live prices with your broker or exchange before trading.</p>
+    <p class="sources"><strong>Sources:</strong> Business Standard · CNBC · Al Jazeera · Reuters · Trendlyne · Groww · Liquide · IPO Watch — cross-checked across multiple reports for this edition.</p>
+  </footer>
+
+</div>
