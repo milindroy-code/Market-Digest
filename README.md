@@ -8,3 +8,5 @@ published as a static site and deployed to Vercel.
 - `DIGEST-PLAYBOOK.md` — the content structure and sources every edition follows
 
 Live site: https://opening-bell-sandy.vercel.app
+
+_Git-based auto-deploy test: 2026-09-14T12:42:21Z_
