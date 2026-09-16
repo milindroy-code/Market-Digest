@@ -9,12 +9,17 @@ output stays consistent day to day. Read this file first, then research, then wr
 **Vercel project:** `opening-bell` (team `milind-roy`), Root Directory = `site`
 
 The live site is a static site under `site/` in the repo, auto-deployed by
-Vercel on every push to `main` — **there is no separate publish step**.
-Every scheduled run should: clone/pull this repo, edit files under `site/`,
+Vercel's native GitHub integration on every push to `main` — **there is no
+separate publish step, and no Vercel CLI or token is needed**. Every
+scheduled run should: clone/pull this repo, edit files under `site/`,
 commit, and `git push`. That push alone updates the live site within ~30–60
-seconds. Do not use the Artifact tool for scheduled runs — it was only used
-for the original one-off Claude Artifact snapshot at `digest.html` (repo
-root), which is not part of the live site and does not need updating.
+seconds — Vercel's GitHub App picks it up automatically (confirmed working
+16 Sep 2026; the project's Root Directory is set to `site`). Do not use the
+Artifact tool for scheduled runs — it was only used for the original one-off
+Claude Artifact snapshot at `digest.html` (repo root), which is not part of
+the live site and does not need updating. Do NOT embed a Vercel token or run
+`vercel deploy` in any automated run — it is unnecessary now and was
+previously the source of a credential-leakage incident (see git history).
 
 ### Site structure
 - `site/styles.css` — shared stylesheet/design tokens. Reuse as-is; don't
