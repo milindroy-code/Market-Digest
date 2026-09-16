@@ -455,6 +455,53 @@ footer {
 }
 .sources strong { color: var(--ink-soft); }
 
+/* Explainer callout */
+.explainer {
+  background: var(--accent-soft);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 20px;
+}
+.explainer p {
+  color: var(--ink-soft) !important;
+  max-width: none !important;
+}
+.explainer p:last-child { margin-bottom: 0 !important; }
+.explainer strong { color: var(--ink); }
+
+/* Further reading */
+.reading-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.reading-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.reading-item:last-child { border-bottom: none; padding-bottom: 0; }
+.reading-item a {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+}
+.reading-item a:hover { color: var(--accent); }
+.reading-item .src {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.reading-item .blurb {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
 /* ---------- Archive page ---------- */
 .archive-page h1 {
   font-family: var(--font-display);
