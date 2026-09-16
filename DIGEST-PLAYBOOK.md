@@ -67,24 +67,29 @@ cycling through alternatives before giving up). Try it once more after a
 Once this is fixed, this whole section can be deleted.
 
 ## Multi-language editions
-Every daily and weekly edition ships in three languages, mirrored at:
-- `site/index.html` / `site/weekly/index.html` — **English** (default)
-- `site/hinglish/index.html` / `site/hinglish/weekly/index.html` — **Hinglish**
-  (natural code-mixed Hindi-English, the register used in Indian finance
-  YouTube/newsletters — not a formal translation)
+**Hinglish is the default language, served at the site root.** This is a
+deliberate choice (made 16 Sep 2026), not the historical default — don't
+"fix" it back to English. Every daily and weekly edition ships in three
+languages, mirrored at:
+- `site/index.html` / `site/weekly/index.html` — **Hinglish** (default,
+  site root — natural code-mixed Hindi-English, the register used in Indian
+  finance YouTube/newsletters, not a formal translation)
+- `site/en/index.html` / `site/en/weekly/index.html` — **English**
 - `site/hi/index.html` / `site/hi/weekly/index.html` — **Hindi** (Devanagari,
   plain accessible financial Hindi, not overly literary/Sanskritised)
 
-All three cover the *same* content and sections — write the English version
-first, then adapt (not machine-translate) into Hinglish and Hindi, preserving
-numbers, names and tickers as-is. Each language version keeps its own dated
-archive copy (`site/hinglish/daily/...`, `site/hi/daily/...`, etc.) and its
-own entries in a per-language section of `site/archive/index.html` — or, if
-time-constrained on a given run, it is better to ship English complete and
-flag the other two as "not refreshed this run" than to ship all three half
-done. The nav's language switcher (`.langswitch`) must exist and link
-correctly on every page in every language — never link to a page that
-doesn't exist yet.
+All three cover the *same* content and sections — research and settle the
+facts once, write the Hinglish version as the primary edition, then adapt
+(not machine-translate) into English and Hindi, preserving numbers, names
+and tickers as-is. Each language version keeps its own dated archive copy
+(`site/daily/...` for Hinglish, `site/en/daily/...`, `site/hi/daily/...`)
+and its own entries in a per-language section of `site/archive/index.html`
+— or, if time-constrained on a given run, it is better to ship the Hinglish
+default complete and flag the other two as "not refreshed this run" than to
+ship all three half done. The nav's language switcher (`.langswitch`) must
+exist and link correctly on every page in every language — `EN` → the
+`/en/...` equivalent, `Hinglish` → the root equivalent, `हिंदी` → the
+`/hi/...` equivalent — and never link to a page that doesn't exist yet.
 
 ## Cadence & framing
 Four recurring cloud routines cover this, plus on-demand runs:
@@ -282,14 +287,16 @@ flagging" and keep it in Further Reading, not the main narrative):**
       against the sources above, cross-checking figures.
 - [ ] Read `site/data/rotation-state.json`, pick this run's quote and
       strategy, and note the incremented indices to write back later.
-- [ ] Write the English edition (`site/index.html` or `site/weekly/index.html`),
-      reusing the existing markup/CSS: masthead, freshness stamp, quote block,
-      watchlist widget mount, all numbered sections, strategy corner, footer.
-- [ ] Adapt into Hinglish and Hindi at their mirrored paths (see "Multi-language
-      editions"). Ship English complete even if the other two have to be
-      skipped this run under real time pressure — say so in the commit message.
+- [ ] Write the Hinglish edition (`site/index.html` or `site/weekly/index.html`
+      — this is the default at site root), reusing the existing markup/CSS:
+      masthead, freshness stamp, quote block, watchlist widget mount, all
+      numbered sections, strategy corner, footer.
+- [ ] Adapt into English (`site/en/...`) and Hindi (`site/hi/...`) at their
+      mirrored paths (see "Multi-language editions"). Ship the Hinglish
+      default complete even if the other two have to be skipped this run
+      under real time pressure — say so in the commit message.
 - [ ] Save a permanent dated copy of each language shipped, under
-      `site/daily/`, `site/hinglish/daily/`, `site/hi/daily/` (or the `weekly`
+      `site/daily/`, `site/en/daily/`, `site/hi/daily/` (or the `weekly`
       equivalents).
 - [ ] Add one new entry per language shipped to `site/archive/index.html`
       linking to that dated copy (most recent first; never delete older

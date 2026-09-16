@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Opening Bell — Week of 7–11 Sep 2026</title>
+<title>The Opening Bell — This Week</title>
 <meta name="description" content="A daily and weekly digest of the most important Indian stock market news.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔔</text></svg>">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,8 +16,13 @@
   <a class="name" href="/">🔔 The Opening Bell</a>
   <div class="links">
     <a href="/en/">Today</a>
-    <a href="/en/weekly/">This Week</a>
-    <a href="/archive/" class="active">Archive</a>
+    <a href="/en/weekly/" class="active">This Week</a>
+    <a href="/archive/">Archive</a>
+  </div>
+  <div class="langswitch">
+    <a href="/en/weekly/" class="active">EN</a>
+    <a href="/weekly/">Hinglish</a>
+    <a href="/hi/">हिंदी</a>
   </div>
 </nav>
 
@@ -32,13 +37,23 @@
       <span><strong>Sunday, 14 September 2026</strong> · Indian markets closed</span>
       <span>Covering the week ended <strong>11 Sep</strong> · previewing <strong>15–19 Sep</strong></span>
     </div>
+    <div class="freshness"><span class="dot"></span><span data-ts="2026-09-14T12:00:00Z">Updated just now</span></div>
   </header>
+
+  <div class="quote-block">
+    <p class="q-text">"Be fearful when others are greedy, and greedy when others are fearful."</p>
+    <p class="q-author">— Warren Buffett</p>
+  </div>
+
+  <div id="watchlist-widget"></div>
+
+  <div data-digest-content>
 
   <p class="lede">
     <span class="drop">A fifth straight losing week</span> for Indian equities closed under the shadow of a fast-moving oil shock: Saudi Arabia shut a pipeline carrying 4% of global crude supply after drone attacks, sending Brent above $107 just as Wall Street rallied on cooler inflation data — a split in global sentiment that Indian markets will have to reconcile on Monday.
   </p>
 
-  <p style="font-size:0.85rem;color:var(--ink-faint);margin:-18px 0 26px;">This is an archived edition — for the current standing digest, see <a href="/en/" style="color:var(--accent)">Today</a> or <a href="/en/weekly/" style="color:var(--accent)">This Week</a>.</p>
+  <p style="font-size:0.85rem;color:var(--ink-faint);margin:-18px 0 26px;">This is the standing weekly digest, refreshed every weekend. See <a href="/en/" style="color:var(--accent)">Today</a> for the latest daily edition once trading resumes, or <a href="/archive/" style="color:var(--accent)">Archive</a> for every past edition.</p>
 
   <section class="tiles-section">
     <div class="tiles">
@@ -162,11 +177,17 @@
     </div>
   </section>
 
+  </div>
+
   <footer>
     <p class="disclaimer">This digest is a news summary for market enthusiasts, not investment advice. Figures are drawn from multiple financial news sources and may be revised — always confirm live prices with your broker or exchange before trading.</p>
     <p class="sources"><strong>Sources:</strong> Business Standard · CNBC · Al Jazeera · Reuters · Trendlyne · Groww · Liquide · IPO Watch — cross-checked across multiple reports for this edition.</p>
   </footer>
 
 </div>
+
+<script src="/watchlist.js"></script>
+<script src="/freshness.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
