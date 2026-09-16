@@ -19,6 +19,11 @@
     <a href="/weekly/" class="active">This Week</a>
     <a href="/archive/">Archive</a>
   </div>
+  <div class="langswitch">
+    <a href="/weekly/" class="active">EN</a>
+    <a href="/hinglish/">Hinglish</a>
+    <a href="/hi/">हिंदी</a>
+  </div>
 </nav>
 
 <div class="wrap">
@@ -32,7 +37,17 @@
       <span><strong>Sunday, 14 September 2026</strong> · Indian markets closed</span>
       <span>Covering the week ended <strong>11 Sep</strong> · previewing <strong>15–19 Sep</strong></span>
     </div>
+    <div class="freshness"><span class="dot"></span><span data-ts="2026-09-14T12:00:00Z">Updated just now</span></div>
   </header>
+
+  <div class="quote-block">
+    <p class="q-text">"Be fearful when others are greedy, and greedy when others are fearful."</p>
+    <p class="q-author">— Warren Buffett</p>
+  </div>
+
+  <div id="watchlist-widget"></div>
+
+  <div data-digest-content>
 
   <p class="lede">
     <span class="drop">A fifth straight losing week</span> for Indian equities closed under the shadow of a fast-moving oil shock: Saudi Arabia shut a pipeline carrying 4% of global crude supply after drone attacks, sending Brent above $107 just as Wall Street rallied on cooler inflation data — a split in global sentiment that Indian markets will have to reconcile on Monday.
@@ -162,11 +177,17 @@
     </div>
   </section>
 
+  </div>
+
   <footer>
     <p class="disclaimer">This digest is a news summary for market enthusiasts, not investment advice. Figures are drawn from multiple financial news sources and may be revised — always confirm live prices with your broker or exchange before trading.</p>
     <p class="sources"><strong>Sources:</strong> Business Standard · CNBC · Al Jazeera · Reuters · Trendlyne · Groww · Liquide · IPO Watch — cross-checked across multiple reports for this edition.</p>
   </footer>
 
 </div>
+
+<script src="/watchlist.js"></script>
+<script src="/freshness.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

@@ -42,18 +42,78 @@ For structure/markup, copy the existing `site/index.html` (and
 nav bar, masthead, stat tiles, section eyebrows, and card/table patterns.
 Only the content changes.
 
+## ⚠ Known blocker: GitHub write access (read this before you push)
+As of 16 Sep 2026, the cloud environment's GitHub connection can **read**
+this repo but cannot **write** to it — every `git push`, and every fallback
+attempt via GitHub MCP tools (`push_files`, `create_or_update_file`), fails
+with `403 Resource not accessible by integration`. This is an account-level
+permission issue only the repo owner can fix (reinstall/reconnect the Claude
+GitHub App with write access — see
+https://github.com/apps/claude/installations/select_target or
+https://claude.ai/customize/connectors). It is **not** something a prompt
+change can work around.
+
+**If `git push` fails with a 403 here:** don't burn the run retrying every
+possible workaround (a past run spent ~10 minutes and a dozen tool calls
+cycling through alternatives before giving up). Try it once more after a
+`git pull` (in case the remote moved), and if it still fails:
+1. Send a failure-alert email immediately (see "Email delivery" below) —
+   include the full HTML/content you already wrote in the email body so
+   nothing is lost, and say plainly that the GitHub write-access issue is
+   still unresolved.
+2. Stop. Do not keep researching or trying new push methods once this
+   specific error is confirmed — it will not resolve itself mid-run.
+
+Once this is fixed, this whole section can be deleted.
+
+## Multi-language editions
+Every daily and weekly edition ships in three languages, mirrored at:
+- `site/index.html` / `site/weekly/index.html` — **English** (default)
+- `site/hinglish/index.html` / `site/hinglish/weekly/index.html` — **Hinglish**
+  (natural code-mixed Hindi-English, the register used in Indian finance
+  YouTube/newsletters — not a formal translation)
+- `site/hi/index.html` / `site/hi/weekly/index.html` — **Hindi** (Devanagari,
+  plain accessible financial Hindi, not overly literary/Sanskritised)
+
+All three cover the *same* content and sections — write the English version
+first, then adapt (not machine-translate) into Hinglish and Hindi, preserving
+numbers, names and tickers as-is. Each language version keeps its own dated
+archive copy (`site/hinglish/daily/...`, `site/hi/daily/...`, etc.) and its
+own entries in a per-language section of `site/archive/index.html` — or, if
+time-constrained on a given run, it is better to ship English complete and
+flag the other two as "not refreshed this run" than to ship all three half
+done. The nav's language switcher (`.langswitch`) must exist and link
+correctly on every page in every language — never link to a page that
+doesn't exist yet.
+
 ## Cadence & framing
+Four recurring cloud routines cover this, plus on-demand runs:
 - **Morning briefing** (~8:00 AM IST, Mon–Fri): lead with overnight global cues —
   US market close, Asian markets, crude oil, USD/INR, gold — then what to expect
   as Indian markets open. Nifty/Sensex/Bank Nifty levels shown are the **previous
   close**, framed as "opening watch," not a same-day result.
+- **Midday pulse** (~12:45 PM IST, Mon–Fri): a short, lighter check-in —
+  today's intraday move so far, anything breaking (a circuit filter, a
+  surprise policy move, a sharp reversal), and a one-line note if nothing
+  notable has happened yet. This one can be shorter than the full template;
+  it exists to catch news the fixed AM/PM cadence would otherwise miss for
+  hours.
 - **Evening wrap** (~4:30 PM IST, Mon–Fri): lead with today's actual closing
   levels and the day's biggest movers, then after-market news and a look ahead
   to tomorrow.
-- **Weekend / holiday run**: when markets are closed (Sat/Sun or a trading
-  holiday), produce a "Week Wrap & Week Ahead" instead — last week's close and
-  weekly change, plus the coming week's key triggers (IPOs, results, policy
-  meetings, data releases).
+- **Weekly digest** (~6:30 PM IST, Fri): last week's close and weekly change,
+  plus the coming week's key triggers (IPOs, results, policy meetings, data
+  releases).
+- **Weekend / holiday**: if a routine fires and markets are/were closed for
+  that session, produce a "Week Wrap & Week Ahead" instead of a same-day
+  report — this is what the weekly routine does by default, and what any
+  daily routine should fall back to if it fires on a non-trading day.
+- **On demand**: any routine can be fired immediately regardless of its
+  schedule — ask Claude directly ("run the evening wrap now") to trigger one
+  via `RemoteTrigger` action `run`. There's no separate public-facing
+  "regenerate" button on the site itself (that would need a backend + abuse
+  protection this static site doesn't have) — on-demand today means asking
+  in a Claude Code session, not a button any visitor can press.
 
 ## Sections (in order)
 1. **Headline snapshot** — Nifty 50, Sensex, Bank Nifty: level, point change, %
@@ -90,6 +150,62 @@ Only the content changes.
 11. **Further reading** — 2–3 links to deeper analysis on today's theme from
     the "Analysis & context" sources below, for readers who want more than a
     digest. One line each on what the piece covers, not a content dump.
+12. **Strategy corner** — one options/trading strategy or investing concept,
+    pulled from `site/data/strategies.json`. See "Quote & strategy rotation"
+    below for how to pick which one and keep the CSS class `.strategy-corner`
+    (already styled). This section is explicitly educational, never a
+    recommendation to place the trade.
+
+Two more fixed elements sit outside the numbered flow:
+- **Quote of the day** — near the top, right under the masthead/freshness
+  stamp, using `.quote-block`. Pulled from `site/data/quotes.json`.
+- **My Stocks widget** — `<div id="watchlist-widget"></div>` placed after the
+  quote block. This is populated entirely by `/watchlist.js` at page load
+  (client-side, localStorage-based — no server, no per-run action needed).
+  Just include the mount div and load the script; never hand-write its
+  contents.
+
+## Quote & strategy rotation
+`site/data/quotes.json` and `site/data/strategies.json` hold the full banks.
+`site/data/rotation-state.json` tracks `quote_index` and `strategy_index` —
+the next item to use. Each run:
+1. Read `rotation-state.json`, pick `quotes[quote_index]` and
+   `strategies[strategy_index]` (prefer a strategy whose `tag` fits the day's
+   actual conditions — `high-volatility` for a binary event like a Fed
+   decision, `range-bound` for a quiet/sideways day, `uptrend`/`downtrend`
+   for a clear trend, `concept` as a safe default).
+2. Use them in the Quote of the Day and Strategy Corner sections.
+3. Increment both indices by 1, wrapping to 0 past the array's end, and
+   commit the updated `rotation-state.json` alongside the edition.
+Never invent a quote or misattribute one — only use what's in the bank. If
+you want to add new entries to either bank because a good one is missing,
+append to the JSON file (same run, same commit) rather than fabricating
+content inline in the HTML.
+
+## Freshness stamp
+Every page has `<div class="freshness"><span class="dot"></span><span
+data-ts="ISO-8601-UTC">…</span></div>` right under the masthead. Set `data-ts`
+to the actual UTC publish time of that run (`date -u +%Y-%m-%dT%H:%M:%SZ`).
+`/freshness.js` (already included on every page) converts it to "Updated Xh
+ago" client-side and flags it red past ~20 hours — don't compute the
+relative text yourself, just set the raw timestamp correctly.
+
+## Email delivery
+After a successful push (site updated), send an email via the Gmail MCP tool
+to **milind.roy@swastika.co.in** with: the edition's headline/lede, the 3-5
+biggest figures, and a link to the live page. Keep it short — a scannable
+summary, not the full HTML. Subject line: "The Opening Bell — <edition type>,
+<date>". This is a personal digest email, not a public subscription list —
+there's no other recipient to manage yet.
+
+## Failure alerting
+If any step in the run fails in a way that stops the edition from
+publishing — research comes up empty, a required file won't parse, or (see
+the GitHub blocker section above) the push itself fails — send an alert
+email via Gmail to **milind.roy@swastika.co.in** before giving up. Subject:
+"⚠ Opening Bell run failed — <edition type>, <date>". Body: what step failed,
+the exact error, and (if you got that far) the content you'd already
+written, so nothing produced this run is lost even if it couldn't publish.
 
 ## Sources
 Cross-check at least 2–3 sources per major number/claim. Not every source
@@ -164,11 +280,25 @@ flagging" and keep it in Further Reading, not the main narrative):**
       branch `main`).
 - [ ] Research the day's/week's Indian market news via WebSearch/WebFetch
       against the sources above, cross-checking figures.
-- [ ] Update `site/index.html` (daily run) or `site/weekly/index.html`
-      (weekly run) in place with the new content, reusing the existing
-      markup/CSS structure.
-- [ ] Save a permanent dated copy under `site/daily/` or `site/weekly/`.
-- [ ] Add one new entry to `site/archive/index.html` linking to that dated
-      copy (most recent first; never delete older entries).
-- [ ] `git add`, commit with a clear message, and `git push` to `main`.
-      This alone redeploys the live site — no other publish step is needed.
+- [ ] Read `site/data/rotation-state.json`, pick this run's quote and
+      strategy, and note the incremented indices to write back later.
+- [ ] Write the English edition (`site/index.html` or `site/weekly/index.html`),
+      reusing the existing markup/CSS: masthead, freshness stamp, quote block,
+      watchlist widget mount, all numbered sections, strategy corner, footer.
+- [ ] Adapt into Hinglish and Hindi at their mirrored paths (see "Multi-language
+      editions"). Ship English complete even if the other two have to be
+      skipped this run under real time pressure — say so in the commit message.
+- [ ] Save a permanent dated copy of each language shipped, under
+      `site/daily/`, `site/hinglish/daily/`, `site/hi/daily/` (or the `weekly`
+      equivalents).
+- [ ] Add one new entry per language shipped to `site/archive/index.html`
+      linking to that dated copy (most recent first; never delete older
+      entries).
+- [ ] Write back `site/data/rotation-state.json` with the incremented indices.
+- [ ] `git add`, commit with a clear message, and `git push` to `main`. This
+      alone redeploys the live site — no other publish step is needed. If
+      this fails with a 403, follow the GitHub blocker section above instead
+      of retrying indefinitely.
+- [ ] On a successful push: send the summary email (see "Email delivery").
+- [ ] On a failure that stops publication: send the failure-alert email (see
+      "Failure alerting") instead, with whatever content was already written.

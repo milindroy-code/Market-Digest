@@ -455,6 +455,194 @@ footer {
 }
 .sources strong { color: var(--ink-soft); }
 
+/* ---------- Language switcher ---------- */
+.langswitch {
+  display: flex;
+  gap: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+}
+.langswitch a {
+  color: var(--ink-faint);
+  text-decoration: none;
+  padding: 5px 8px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+}
+.langswitch a:hover { color: var(--ink); background: var(--surface-2); }
+.langswitch a.active {
+  color: var(--accent);
+  border-color: var(--border);
+  background: var(--accent-soft);
+}
+
+/* ---------- Freshness stamp ---------- */
+.freshness {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  margin: 10px 0 0;
+}
+.freshness .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gain);
+  flex-shrink: 0;
+}
+.freshness.stale .dot { background: var(--loss); }
+.freshness.stale { color: var(--loss); }
+
+/* ---------- Quote of the day ---------- */
+.quote-block {
+  position: relative;
+  padding: 20px 24px 20px 28px;
+  margin: 22px 0 28px;
+  border-left: 3px solid var(--accent);
+  background: linear-gradient(to right, var(--accent-soft), transparent);
+  border-radius: 0 8px 8px 0;
+}
+.quote-block .q-text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.05rem, 2.6vw, 1.3rem);
+  line-height: 1.5;
+  color: var(--ink);
+  text-wrap: balance;
+  margin: 0 0 8px;
+}
+.quote-block .q-author {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ---------- Strategy corner ---------- */
+.strategy-corner {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--gain);
+  border-radius: 8px;
+  padding: 20px 22px;
+}
+.strategy-corner .sc-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gain);
+  margin-bottom: 6px;
+}
+.strategy-corner .sc-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.strategy-corner p {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0;
+  max-width: none !important;
+}
+.strategy-corner em { color: var(--ink); font-style: normal; font-weight: 600; }
+
+/* ---------- Watchlist widget ---------- */
+#watchlist-widget {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin: 0 0 28px;
+}
+.wl-header { margin-bottom: 10px; }
+.wl-title {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--ink);
+  display: block;
+}
+.wl-sub {
+  font-size: 0.76rem;
+  color: var(--ink-faint);
+}
+.wl-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.wl-form input {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--bg);
+  color: var(--ink);
+}
+.wl-form input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.wl-form button {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  background: var(--accent);
+  color: var(--bg);
+  cursor: pointer;
+}
+.wl-form button:hover { opacity: 0.9; }
+.wl-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.wl-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  padding: 5px 6px 5px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+.wl-remove {
+  border: none;
+  background: none;
+  color: var(--ink-faint);
+  cursor: pointer;
+  font-size: 0.95rem;
+  line-height: 1;
+  padding: 2px 4px;
+}
+.wl-remove:hover { color: var(--loss); }
+.wl-hits { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+.wl-hits-title {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gain);
+  margin-bottom: 6px;
+}
+.wl-hit { font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 4px; }
+.wl-hits-empty { font-size: 0.85rem; color: var(--ink-faint); }
+
 /* Explainer callout */
 .explainer {
   background: var(--accent-soft);

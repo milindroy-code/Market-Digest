@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Long Straddle",
+    "tag": "high-volatility",
+    "explainer": "Buy a call and a put at the same strike and expiry. You profit if the underlying makes a big move in <em>either</em> direction — you're betting on volatility itself, not a direction. The cost is the combined premium of both options, which is also your maximum loss if the stock sits still. Traders reach for this ahead of binary events like a Fed decision or an earnings call, exactly the kind of setup in today's edition."
+  },
+  {
+    "name": "Long Strangle",
+    "tag": "high-volatility",
+    "explainer": "Like a straddle, but you buy a call and a put at <em>different</em> (out-of-the-money) strikes instead of the same one. It's cheaper to put on than a straddle because both legs are further from the money, but the underlying needs to move even further before you profit. A lower-cost way to bet on a big move without picking a direction."
+  },
+  {
+    "name": "Iron Condor",
+    "tag": "range-bound",
+    "explainer": "Sell an out-of-the-money call spread and an out-of-the-money put spread at the same time. You collect premium upfront and keep it if the underlying stays within a range through expiry — the trade that profits from a market going nowhere. Risk is capped on both sides, which is why it's a popular income strategy in sideways markets."
+  },
+  {
+    "name": "Covered Call",
+    "tag": "any",
+    "explainer": "If you already hold a stock, sell a call option against it. You collect the premium as income, and if the stock stays below the strike, you keep both the stock and the premium. The tradeoff: if the stock rallies hard past the strike, you miss out on gains beyond it, since you're obligated to sell at that price."
+  },
+  {
+    "name": "Protective Put",
+    "tag": "downtrend",
+    "explainer": "Buy a put option on a stock you already own, as insurance. If the stock falls, the put gains value and offsets the loss; if it doesn't, you've paid a small premium for peace of mind — the same logic as paying for car insurance you hope never to use. A common way to stay invested through an uncertain event like tonight's Fed decision without fully exiting a position."
+  },
+  {
+    "name": "Bull Call Spread",
+    "tag": "uptrend",
+    "explainer": "Buy a call at a lower strike and sell a call at a higher strike, same expiry. This caps both your cost and your maximum profit compared to buying a call outright, making it a way to express a moderately bullish view more cheaply — you give up unlimited upside in exchange for a lower breakeven."
+  },
+  {
+    "name": "Bear Put Spread",
+    "tag": "downtrend",
+    "explainer": "The mirror image of a bull call spread: buy a put at a higher strike, sell a put at a lower strike. It reduces the cost of a bearish bet versus buying a put outright, at the cost of capping how much you can make if the stock falls sharply."
+  },
+  {
+    "name": "Calendar Spread",
+    "tag": "range-bound",
+    "explainer": "Sell a near-term option and buy a longer-dated option at the same strike. The near-term option decays faster (time decay accelerates as expiry approaches), so if the stock stays roughly flat, the position can profit from that difference in decay rates — a strategy built around time itself, not direction."
+  },
+  {
+    "name": "Position Sizing",
+    "tag": "concept",
+    "explainer": "Not every trade deserves the same amount of capital. Professional traders size a position based on how far their stop-loss is and how much of their total capital they're willing to risk on one idea — often just 1-2% per trade — rather than a fixed number of shares or lots. The strategy matters less than the size; a great setup with an oversized position can still wipe out an account."
+  },
+  {
+    "name": "Risk-Reward Ratio",
+    "tag": "concept",
+    "explainer": "Before entering a trade, compare what you stand to lose (distance to your stop-loss) against what you stand to gain (distance to your target). A trade with a 1:3 risk-reward ratio can still be profitable overall even if you're wrong more often than you're right — this is why professional traders talk about expectancy, not just win rate."
+  },
+  {
+    "name": "Trailing Stop-Loss",
+    "tag": "uptrend",
+    "explainer": "Instead of a fixed stop-loss, a trailing stop moves up as the price rises, locking in gains while still giving the trade room to run. It's a way to let winners run — a piece of trading wisdom you'll see quoted often — without needing to predict exactly when a trend will end."
+  },
+  {
+    "name": "Averaging Down vs. Pyramiding",
+    "tag": "concept",
+    "explainer": "Averaging down means buying more of a losing position to lower your average cost — risky, since you're adding to a trade that's already going against you. Pyramiding is the opposite: adding to a <em>winning</em> position as it moves in your favor. Most experienced traders favor pyramiding into strength over averaging into weakness, since it means the market is confirming the thesis rather than you fighting it."
+  },
+  {
+    "name": "Delta Hedging",
+    "tag": "high-volatility",
+    "explainer": "Delta measures how much an option's price moves for a ₹1 move in the underlying. Large options traders and market makers buy or sell the underlying stock to offset their book's delta, staying roughly neutral to small price moves — it's how institutional desks can sell options in size without simply betting on direction."
+  },
+  {
+    "name": "The Iron Butterfly",
+    "tag": "range-bound",
+    "explainer": "A tighter cousin of the iron condor: sell an at-the-money call and put, and buy further out-of-the-money call and put as protection. It pays out most if the underlying finishes exactly at the middle strike, offering a higher potential reward than a condor for a market expected to stay very still — at the cost of a narrower profitable range."
+  },
+  {
+    "name": "Dollar-Cost Averaging (SIP)",
+    "tag": "concept",
+    "explainer": "Investing a fixed amount at regular intervals, regardless of price, rather than trying to time a single lump-sum entry. Known in India as a SIP, it removes the emotional guesswork of 'is this the right time to buy' and has historically smoothed returns for long-term investors through volatile stretches like the one markets are in right now."
+  },
+  {
+    "name": "Max Pain Theory",
+    "tag": "concept",
+    "explainer": "The idea that an underlying tends to gravitate toward the strike price at which option buyers, collectively, lose the most money by expiry — because option sellers (often larger, better-capitalized players) benefit from that outcome. It's a widely watched but imperfect signal, useful as one input among several rather than a guaranteed prediction."
+  }
+]
