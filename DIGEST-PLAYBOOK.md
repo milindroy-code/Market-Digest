@@ -23,7 +23,12 @@ previously the source of a credential-leakage incident (see git history).
 
 ### Site structure
 - `site/styles.css` — shared stylesheet/design tokens. Reuse as-is; don't
-  fork per-page styles.
+  fork per-page styles. The palette/type system (Montserrat + Lato, blue
+  `#3b77ed` accent, green `#21ce99`/red `#ef534e` semantic colors) is
+  deliberately aligned to Swastika Investmart's brand (swastika.co.in), at
+  the user's request on 17 Sep 2026 — this is a visual-identity match only,
+  not an affiliation claim; keep the product's own name and don't add
+  Swastika's logo, regulatory badges, or company name to the page.
 - `site/index.html` — the latest **daily** edition (home page / "Today" tab).
   Overwritten each daily run with the newest content.
 - `site/daily/YYYY-MM-DD-<morning|evening>.html` — permanent dated copy of
