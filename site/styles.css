@@ -838,16 +838,24 @@ footer {
 }
 .archive-group { margin-bottom: 30px; }
 .archive-group h2 {
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
   margin: 0 0 12px;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--rule);
 }
+.archive-group h3 {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 16px 0 4px;
+}
+.archive-group h3:first-of-type { margin-top: 4px; }
 .archive-list {
   list-style: none;
   margin: 0;
