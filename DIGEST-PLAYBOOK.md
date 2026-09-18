@@ -202,20 +202,22 @@ relative text yourself, just set the raw timestamp correctly.
 
 ## Email delivery
 After a successful push (site updated), send an email via the Gmail MCP tool
-to **milind.roy@swastika.co.in** with: the edition's headline/lede, the 3-5
-biggest figures, and a link to the live page. Keep it short — a scannable
-summary, not the full HTML. Subject line: "The Opening Bell — <edition type>,
-<date>". This is a personal digest email, not a public subscription list —
-there's no other recipient to manage yet.
+to **milind.roy@swastika.co.in** and **sameer.lodha@swastika.co.in** (both as
+`to` recipients) with: the edition's headline/lede, the 3-5 biggest figures,
+and a link to the live page. Keep it short — a scannable summary, not the
+full HTML. Subject line: "The Opening Bell — <edition type>, <date>". This is
+a small distribution list, not a public subscription system — add a new
+name here only if the user explicitly asks.
 
 ## Failure alerting
 If any step in the run fails in a way that stops the edition from
 publishing — research comes up empty, a required file won't parse, or (see
 the GitHub blocker section above) the push itself fails — send an alert
-email via Gmail to **milind.roy@swastika.co.in** before giving up. Subject:
-"⚠ Opening Bell run failed — <edition type>, <date>". Body: what step failed,
-the exact error, and (if you got that far) the content you'd already
-written, so nothing produced this run is lost even if it couldn't publish.
+email via Gmail to **milind.roy@swastika.co.in** and
+**sameer.lodha@swastika.co.in** before giving up. Subject: "⚠ Opening Bell
+run failed — <edition type>, <date>". Body: what step failed, the exact
+error, and (if you got that far) the content you'd already written, so
+nothing produced this run is lost even if it couldn't publish.
 
 ## Sources
 Cross-check at least 2–3 sources per major number/claim. Not every source
