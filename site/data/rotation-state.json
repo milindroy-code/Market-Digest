@@ -1,5 +1,5 @@
 {
-  "quote_index": 9,
-  "strategy_index": 9,
+  "quote_index": 10,
+  "strategy_index": 10,
   "note": "Advance quote_index and strategy_index by 1 (wrapping to 0 at array length) each time a routine picks one, so readers don't see repeats run over run. Committed back to the repo alongside the edition it was used for."
 }
