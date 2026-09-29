@@ -47,29 +47,21 @@ For structure/markup, copy the existing `site/index.html` (and
 nav bar, masthead, stat tiles, section eyebrows, and card/table patterns.
 Only the content changes.
 
-## ⚠ Known blocker: GitHub write access (read this before you push)
-As of 16 Sep 2026, the cloud environment's GitHub connection can **read**
-this repo but cannot **write** to it — every `git push`, and every fallback
-attempt via GitHub MCP tools (`push_files`, `create_or_update_file`), fails
-with `403 Resource not accessible by integration`. This is an account-level
-permission issue only the repo owner can fix (reinstall/reconnect the Claude
-GitHub App with write access — see
-https://github.com/apps/claude/installations/select_target or
-https://claude.ai/customize/connectors). It is **not** something a prompt
-change can work around.
-
-**If `git push` fails with a 403 here:** don't burn the run retrying every
-possible workaround (a past run spent ~10 minutes and a dozen tool calls
-cycling through alternatives before giving up). Try it once more after a
-`git pull` (in case the remote moved), and if it still fails:
-1. Send a failure-alert email immediately (see "Email delivery" below) —
-   include the full HTML/content you already wrote in the email body so
-   nothing is lost, and say plainly that the GitHub write-access issue is
-   still unresolved.
-2. Stop. Do not keep researching or trying new push methods once this
-   specific error is confirmed — it will not resolve itself mid-run.
-
-Once this is fixed, this whole section can be deleted.
+## If `git push` ever fails with a 403
+Between 16-29 Sep 2026 the cloud environment's GitHub connection could
+**read** this repo but not **write** to it — every `git push` failed with
+`403 Resource not accessible by integration`, an account-level permission
+issue. This was confirmed fixed on 29 Sep 2026 (a backlog of 12 commits from
+that window pushed cleanly, along with that day's evening-wrap commit), so
+don't assume it's still broken. If a 403 like this ever recurs: try once
+more after a `git pull` (in case the remote moved), and if it still fails,
+send a failure-alert email immediately (see "Email delivery" below) with the
+full HTML/content already written so nothing is lost, then stop rather than
+cycling through workarounds — this is an account-level fix only the repo
+owner can make (reinstall/reconnect the Claude GitHub App with write access
+at https://github.com/apps/claude/installations/select_target or
+https://claude.ai/customize/connectors), not something a prompt change or
+retry loop can work around.
 
 ## Multi-language editions
 **Hinglish is the default language, served at the site root.** This is a
